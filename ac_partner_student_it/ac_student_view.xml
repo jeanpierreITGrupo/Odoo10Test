@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="es_empleado" position="after">
+                    <field name="apoderado"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="supplier" position="after">
+                    <filter string="Estudiantes" name="student" domain="[('student','=',1), ('parent_id', '=', False)]"/>
+                </filter>
+                <filter name="group_country" position="after">
+                    <filter name="group_apoderado_id" string="Apoderado" context="{'group_by': 'apoderado_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_partner_apoderado_form" model="ir.ui.view">
+            <field name="name">res.partner.simplified.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Contact">
+                    <sheet>
+                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                    <div class="oe_title">
+                        <field name="is_company" invisible="1"/>
+                        <field name="commercial_partner_id" invisible="1"/>
+                        <field name="company_type" invisible="1"/>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="type_document_partner_it" placeholder="Tipo de Documento" />
+                            <field name="nro_documento" placeholder="Número de Documento" />
+                        </div>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="type" invisible="1"/>
+                            <label for="street" string="Dirección"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Calle..." />
+                                <field name="street2" placeholder="Urbanización o Zona..." />
+                                <field name="country_id" placeholder="Pais" options='{"no_open": True, "no_create": True}'/>
+                                <field name="state_id" placeholder="Departamento" options='{"no_open": True}' context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="province_id" placeholder="Provincia"/>
+                                <field name="district_id" placeholder="Distrito"/>
+                                <field name="city" placeholder="Otra referencia" />
+                                <field name="zip" placeholder="Código postal" />
+                            </div>
+                            <field name="email"/>
+                            <field name="country_nac_id"/>
+                            <field name="apoderado"/>
+                            <field name="customer"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ac_student_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Estudiante">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                    <div class="oe_title">
+                        <field name="is_company" invisible="1"/>
+                        <field name="commercial_partner_id" invisible="1"/>
+                        <field name="company_type" invisible="1"/>
+                        <div class="o_row">
+                            <label for="code_student_label" string="Código EDUSOFTNET: "/>
+                            <field name="code_student" style="color: blue;"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" attrs="{'required' : [('type', '=', 'contact')]}"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="type_document_partner_it" placeholder="Tipo de Documento" />
+                            <field name="nro_documento" placeholder="Número de Documento" />
+                            <field name="parent_id" placeholder="Factura a" domain="[('is_company', '=', True)]" context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="type" attrs="{'invisible': [('parent_id','=', False)]}" groups="base.group_no_one"/>
+                            <field name="it_type_document"/>
+                            <label for="street" string="Dirección"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Calle..." />
+                                <field name="street2" placeholder="Urbanización o Zona..." />
+                                <field name="country_id" placeholder="Pais" options='{"no_open": True, "no_create": True}'/>
+                                <field name="state_id" placeholder="Departamento" options='{"no_open": True}' context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="province_id" placeholder="Provincia"/>
+                                <field name="district_id" placeholder="Distrito"/>
+                                <field name="city" placeholder="Otra referencia" />
+                                <field name="zip" placeholder="Código postal" />
+                            </div>
+                            <field name="email"/>
+                            <field name="category_id" widget="many2many_tags" placeholder="Tags..." options="{'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="apoderado_id" readonly="1"/>
+                            <field name="code_payment"/>
+                            <field name="code_family"/>
+                            <field name="grado_id"/>
+                            <field name="seccion_id"/>
+                            <field name="etapa_id"/>
+                            <field name="country_nac_id"/>
+                            <field name="date_nac"/>
+                        </group>
+                        <field name="student" invisible="1"/>
+                        <field name="customer" invisible="1"/>
+                        <field name="supplier" invisible="1"/>
+                    </group>
+
+                    <notebook colspan="4">
+                        <page string="Saldos por pagar" autofocus="autofocus">
+                        </page>
+                        <page name='internal_notes' string="Internal Notes">
+                            <field name="comment" placeholder="Internal note..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_ac_student_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Estudiantes">
+                    <field name="display_name" string="Estudiante"/>
+                    <field name="code_student"/>
+                    <field name="code_family"/>
+                    <field name="apoderado_id"/>
+                    <field name="email_apoderado"/>
+                    <field name="grado_id"/>
+                    <field name="seccion_id"/>
+                    <field name="etapa_id"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="view_ac_student_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Estudiantes">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                    <field name="apoderado_id" domain="[('apoderado','=',1)]" operator="child_of"/>
+                    <separator/>
+                    <field name="code_student"/>
+                    <field name="code_payment"/>
+                    <field name="code_family"/>
+                    <group expand="0" name="group_by" string="Group By">
+                       <filter string="Apoderado" context="{'group_by': 'apoderado_id'}"/>
+                       <filter string="Grado" context="{'group_by': 'grado_id'}"/>
+                       <filter string="Seccion" context="{'group_by': 'seccion_id'}"/>
+                       <filter string="Etapa" context="{'group_by': 'etapa_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="ac_student_action" model="ir.actions.act_window">
+            <field name="name">Estudiantes</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('student', '=', True)]</field>
+            <field name="context">
+                {'form_view_ref':'ac_partner_student_it.view_ac_student_form','tree_view_ref':'ac_partner_student_it.view_ac_student_tree','search_view_ref':'ac_partner_student_it.view_ac_student_filter','default_company_type':'person','default_student':True}
+            </field>
+        </record>
+
+        <menuitem name="Académico" id="academico_menu_padre"
+	     sequence="7" />
+
+		<menuitem name="Académico" id="academico_sub_menu"
+	    parent="academico_menu_padre"  sequence="7" />
+
+		<menuitem name="Estudiantes" id="ac_student_menu"
+	    parent="academico_sub_menu" action="ac_student_action" sequence="7" />
+       </data>
+</odoo>
