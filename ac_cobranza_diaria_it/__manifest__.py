@@ -3,7 +3,7 @@
 	'name': 'Importacion de Recaudacion',
 	'category': 'account',
 	'author': 'ITGRUPO-PRESCOTT',
-	'depends': ['import_base_it','ac_update_from_server'],
+	'depends': ['ac_update_from_server'],
 	'version': '1.0',
 	'description':"""
 	Importa Recaudaciones Diarias
