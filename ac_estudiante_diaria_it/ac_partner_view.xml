@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+
+        <record id="view_ac_student_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ac_partner_student_it.view_ac_student_form"/>
+            <field name="arch" type="xml">
+                <field name="apoderado_id" position="replace">
+                    <field name="val_apoderado_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+
+
+        <record id="view_estudiante_diaria_estudiante_form" model="ir.ui.view">
+            <field name="name">estudiante.diaria.estudiante.form</field>
+            <field name="model">estudiante.diaria.estudiante</field>
+            <field name="arch" type="xml">
+                <form string="Sincronización Estudiantes">
+                            <group>
+                                        <field name="estu_codigo" readonly="1"/>
+                            </group>
+                </form>
+            </field>
+        </record>
+
+
+
+
+        <record id="view_estudiante_diaria_formasdf" model="ir.ui.view">
+            <field name="name">estudiante.diaria.form</field>
+            <field name="model">estudiante.diaria</field>
+            <field name="arch" type="xml">
+                <form string="Sincronización Estudiantes">
+                    <header>
+                        <button name="sacar_estudiante" states="borrador" string="Sincronizar Estudiantes" type="object"  class="oe_highlight"/>
+                        <field name="state" widget="statusbar"  readonly="1"/>
+                    </header>
+                    <sheet>
+                    <div class="oe_title">
+                        <field name="name" readonly="1"/>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="have_error" readonly="1"/>
+                        </group>
+                        <group> 
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Estudiantes">
+                            <group>
+                                <field name="estudiante_ids" nolabel="1" readonly="1">
+                                    <tree editable="top" create="0" delete="0">
+
+                                        <field name="estu_codigo" readonly="1"/>
+                                        <field name="estu_documento" readonly="1"/>
+                                        <field name="estu_nacionalidad" readonly="1"/>
+                                        <field name="estu_nombres" readonly="1"/>
+                                        <field name="estu_ap_paterno" readonly="1"/>
+                                        <field name="estu_ap_materno" readonly="1"/>
+                                        <field name="estu_domicilio" readonly="1"/>
+                                        <field name="estu_domidistrito" readonly="1"/>
+                                        <field name="estu_domiprovincia" readonly="1"/>
+                                        <field name="estu_domidepartamento" readonly="1"/>
+                                        <field name="estu_homastico" readonly="1"/>
+                                        <field name="estu_bancario" readonly="1"/>
+                                        <field name="estu_cofamiliar" readonly="1"/>
+                                        <field name="estu_nivel" readonly="1"/>
+                                        <field name="estu_grado" readonly="1"/>
+                                        <field name="estu_aula" readonly="1"/>
+                                        <field name="estu_estado" readonly="1"/>
+                                        <field name="apo_documento" readonly="1"/>
+                                        <field name="apo_nacionalidad" readonly="1"/>
+                                        <field name="apo_nombres" readonly="1"/>
+                                        <field name="apo_ape_paterno" readonly="1"/>
+                                        <field name="apo_ape_materno" readonly="1"/>
+                                        <field name="apo_email" readonly="1"/>
+                                        <field name="apo_domicilio" readonly="1"/>
+                                        <field name="apo_domidistrito" readonly="1"/>
+                                        <field name="apo_domiprovincia" readonly="1"/>
+                                        <field name="apo_domidepartamento" readonly="1"/>
+                                        <field name="importar" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Error">
+                            <group>
+                                <field name="errores_ids" nolabel="1" readonly="1">
+                                    <tree editable="top" create="0" delete="0">
+                                        <field name="error_json" string="Error" widget="recaudacion_error_tree" readonly="1"/>
+
+                                        <field name="estu_codigo" readonly="1"/>
+                                        <field name="estu_documento" readonly="1"/>
+                                        <field name="estu_nacionalidad" readonly="1"/>
+                                        <field name="estu_nombres" readonly="1"/>
+                                        <field name="estu_ap_paterno" readonly="1"/>
+                                        <field name="estu_ap_materno" readonly="1"/>
+                                        <field name="estu_domicilio" readonly="1"/>
+                                        <field name="estu_domidistrito" readonly="1"/>
+                                        <field name="estu_domiprovincia" readonly="1"/>
+                                        <field name="estu_domidepartamento" readonly="1"/>
+                                        <field name="estu_homastico" readonly="1"/>
+                                        <field name="estu_bancario" readonly="1"/>
+                                        <field name="estu_cofamiliar" readonly="1"/>
+                                        <field name="estu_nivel" readonly="1"/>
+                                        <field name="estu_grado" readonly="1"/>
+                                        <field name="estu_aula" readonly="1"/>
+                                        <field name="estu_estado" readonly="1"/>
+                                        <field name="apo_documento" readonly="1"/>
+                                        <field name="apo_nacionalidad" readonly="1"/>
+                                        <field name="apo_nombres" readonly="1"/>
+                                        <field name="apo_ape_paterno" readonly="1"/>
+                                        <field name="apo_ape_materno" readonly="1"/>
+                                        <field name="apo_email" readonly="1"/>
+                                        <field name="apo_domicilio" readonly="1"/>
+                                        <field name="apo_domidistrito" readonly="1"/>
+                                        <field name="apo_domiprovincia" readonly="1"/>
+                                        <field name="apo_domidepartamento" readonly="1"/>
+                                        <field name="importar" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_estudiante_diaria_tree" model="ir.ui.view">
+            <field name="name">estudiante.diaria.tree</field>
+            <field name="model">estudiante.diaria</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sincronización Estudiantes">
+                    <field name="name"/>
+                    <field name="have_error"/>
+                    <field name="state" attrs="{'invisible':[('have_error','=',True)]}"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="estudiante_diaria_action" model="ir.actions.act_window">
+            <field name="name">Sincronización Estudiantes</field>
+            <field name="res_model">estudiante.diaria</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="Sincronización EdusoftNet" id="proceso_edusoft_menu"
+        parent="ac_partner_student_it.academico_menu_padre"  sequence="1" />
+
+        <menuitem name="Sincronización Estudiantes" id="menu_estudiante_diaria" action="estudiante_diaria_action" parent="proceso_edusoft_menu"  sequence="1" />
+
+
+    </data>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ac_parameters_form" model="ir.ui.view">
+            <field name="name">ac.parameters.form</field>
+            <field name="model">ac.parameters</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Parametros">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Sincronizacion">
+                            <group>
+                                <field name="server"/>
+                                <field name="database"/>
+                                <field name="username"/>
+                                <field name="password"  password = 'True'/>
+                                <field name="path_csv" />
+                            </group>
+
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ac_parameters_tree" model="ir.ui.view">
+            <field name="name">ac.parameters.tree</field>
+            <field name="model">ac.parameters</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Parametros">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ac_parameters_filter" model="ir.ui.view">
+            <field name="name">ac.parameters.select</field>
+            <field name="model">ac.parameters</field>
+            <field name="arch" type="xml">
+                <search string="Search Log">
+                    <filter string="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ac_parameters_action" model="ir.actions.act_window">
+            <field name="name">Parametros</field>
+            <field name="res_model">ac.parameters</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Configuracion" id="configuracion_sub_menu" parent="ac_partner_student_it.academico_menu_padre"
+                  sequence="7"/>
+
+        <menuitem name="Parametros" id="patameters_estudiantes_menu" parent="configuracion_sub_menu"
+                  action="ac_parameters_action" sequence="7"/>
+    </data>
+</odoo>
