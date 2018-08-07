@@ -3,7 +3,7 @@
 	'name': 'Importacion de Estudiante',
 	'category': 'account',
 	'author': 'ITGRUPO-PRESCOTT',
-	'depends': ['import_base_it','ac_cobranza_diaria_it'],
+	'depends': ['ac_cobranza_diaria_it'],
 	'version': '1.0',
 	'description':"""
 	Importa Recaudaciones Diarias
